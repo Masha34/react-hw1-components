@@ -1,0 +1,12 @@
+.footer-block{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.icon{
+    font-size: 30px;
+    color: #007bff;
+    margin-left: 15px;
+}
