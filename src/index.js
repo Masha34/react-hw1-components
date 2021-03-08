@@ -20,13 +20,19 @@ import React, {Fragment, Component} from "react";
 
 import ReactDOM from "react-dom";
 import "./index.css";
+
+//Router
+import {
+  BrowserRouter as Router, // Router буде псевдонімом до BrowserRouter
+  Switch,  // компоненнт з бібліотеки react-router-dom
+  Route,   // компоненнт з бібліотеки react-router-dom
+} from "react-router-dom";
+
 import { v4 as uuidv4 } from 'uuid';
 // import App from './App';
 
 import Header from "./Components/Header/header";
-import Search from "./Components/Search/search";
 import ContactList from "./Components/ContactList/contactList";
-// import ContactItem from "./Components/ContactList/ContactItem.js/contactItem";
 import Footer from "./Components/Footer/footer";
 
 class App extends Component {
@@ -76,6 +82,41 @@ class App extends Component {
       }
     ]
   }
+  onDelete = (Id) => {
+    const index = this.state.List.findIndex((elem) => elem.Id === Id);
+    // console.log("Delete index => ", index)
+    const partOne = this.state.List.slice(0, index); // все від 0 елемента до елемента який нам треба видалити
+    const pertTwo = this.state.List.slice(index + 1); // все після видаленого елемента
+    const newList = [...partOne, ...pertTwo]; //викор диструктуризацію
+    // ... - це спред оператор, тобто м не знаємо точну к-сть параметрів тому пишемо ...
+    this.setState(() => {
+      return {
+        List: newList,
+      };
+    });
+  }
+
+  //нижче ще один працюючий метод для видалення
+  // onDelete = (Id) => {
+  //   const newList = [...this.state.List].filter((elem) => elem.Id !== Id);
+  //   this.setState(() => {
+  //     return {
+  //       List: newList
+  //     };
+  //   });
+  // }
+
+  //нижче ще один працюючий метод для видалення але він не працює
+  // onDelete = (Id) => {
+  //   const index = this.state.List.findIndex((elem) => elem.Id === Id)
+  // let newList = this.state.List.slice();
+  // delete newList[index];
+  //   this.setState(() => {
+  //     return {
+  //       List: newList
+  //     };
+  //   });
+  // }
 
   onStatusChange = (Id) => {
         // console.log("onStatusChange", Id);
@@ -83,7 +124,7 @@ class App extends Component {
         const index = this.state.List.findIndex((elem) => elem.Id === Id);
         // console.log("Index = ", index)
         let newList = this.state.List.slice();
-        console.log("before newList ", newList[index].Status);
+        // console.log("before newList ", newList[index].Status);
         // console.log(this.state.List[index].Status);
           if (newList[index].Status === "Inactive"){
             newList[index].Status = "Active"
@@ -97,9 +138,8 @@ class App extends Component {
           else if (newList[index].Status === "Banned"){
             newList[index].Status = "Inactive"
           }
-
-          
-          console.log("after newList ", newList[index].Status);
+     
+          // console.log("after newList ", newList[index].Status);
 
           this.setState(() => {
             return{
@@ -122,11 +162,15 @@ class App extends Component {
     console.log("App state => ", this.state);
     return(
       <Fragment>
-          <Header />
-          <Search />
-          <ContactList List={List} onStatusChange={this.onStatusChange}/>
+        <Header />   
+          <Router>
+            <Switch>
+              {/* <ContactList List={List} onStatusChange={this.onStatusChange} onDelete={this.onDelete} /> */}
+              <Route path="/" exact render={() => <ContactList List={List} onStatusChange={this.onStatusChange} onDelete={this.onDelete} />} />
+            </Switch>
+          </Router>
           <Footer />
-      </Fragment>
+      </Fragment> 
     )
   }
 }

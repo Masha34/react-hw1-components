@@ -8,25 +8,23 @@ const Footer = () => {
             <div className="container">
                 <div className="row">
                     <div className="col-lg-12 footer-block">
-                    <tr>
-                        <td>
+                        <div>
                             <a href="#" className="table">
                                 <span className="fa-social">                               
-                                <i class="fa fa-facebook-official icon" aria-hidden="true"></i>
+                                <i className="fa fa-facebook-official icon" aria-hidden="true"></i>
                                 </span>
                             </a>
                             <a href="#" className="table">
                                 <span className="fa-social">
-                                <i class="fa fa-instagram icon" aria-hidden="true"></i>
+                                <i className="fa fa-instagram icon" aria-hidden="true"></i>
                                 </span>
                             </a>
                             <a href="#" className="table">
                                 <span className="fa-social">
-                                <i class="fa fa-twitter-square icon" aria-hidden="true"></i>
+                                <i className="fa fa-twitter-square icon" aria-hidden="true"></i>
                                 </span>
                             </a>
-                        </td>
-                    </tr>
+                        </div>
                     </div>
                 </div>
             </div>
