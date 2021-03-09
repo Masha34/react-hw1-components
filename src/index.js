@@ -34,6 +34,7 @@ import { v4 as uuidv4 } from 'uuid';
 import Header from "./Components/Header/header";
 import ContactList from "./Components/ContactList/contactList";
 import Footer from "./Components/Footer/footer";
+import AddContact from "./Components/AddContact/addContact";
 
 class App extends Component {
 
@@ -161,15 +162,16 @@ class App extends Component {
     const {List} = this.state;
     console.log("App state => ", this.state);
     return(
-      <Fragment>
-        <Header />   
+      <Fragment> 
           <Router>
+          <Header />  
             <Switch>
               {/* <ContactList List={List} onStatusChange={this.onStatusChange} onDelete={this.onDelete} /> */}
               <Route path="/" exact render={() => <ContactList List={List} onStatusChange={this.onStatusChange} onDelete={this.onDelete} />} />
+              <Route path="/add-contact" exact render={() => <AddContact /> } />
             </Switch>
+            <Footer />
           </Router>
-          <Footer />
       </Fragment> 
     )
   }

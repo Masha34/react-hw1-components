@@ -1,5 +1,7 @@
 import React, {Fragment} from "react";
 
+import {Link} from "react-router-dom";
+
 import Search from "../Search/search"
 
 import "./header.css";
@@ -10,11 +12,14 @@ const Header = () => {
         <div className="container">
             <div className="row">
                 <div className="col-lg-4 header-block">
-                    <a className="navbar-brand" href="/">Contact List</a>
+                    <Link to="/" className="navbar-brand">Contact List</Link>
                 </div>
                 <div className="col-lg-8 header-block">
-                    <button type="button" className="btn btn-primary"><a className="btn-primary" href="#" role="button">Home</a></button>
+                    {/* <button type="button" className="btn btn-primary"><a className="btn-primary" href="#" role="button">Home</a></button>
                     <button type="button" className="btn btn-success add">Add new contact</button>
+                    */}
+                    <Link to="/" className="nav-link active" aria-current="page">Home</Link>
+                    <Link to="/add-contact" className="nav-link" aria-current="page">Add new contact</Link>
                 </div>
             </div>
         </div>
@@ -22,6 +27,8 @@ const Header = () => {
         </Fragment>
     )
 }
+
+export default Header;
 {/* <Fragment>
     <div className="container">
         <div className="row">
@@ -50,4 +57,3 @@ const Header = () => {
     </div>
     </div>
     </Fragment> */}
-export default Header;
