@@ -35,6 +35,7 @@ import Header from "./Components/Header/header";
 import ContactList from "./Components/ContactList/contactList";
 import Footer from "./Components/Footer/footer";
 import AddContact from "./Components/AddContact/addContact";
+import Error404 from "./Components/Error404/error404";
 
 class App extends Component {
 
@@ -169,6 +170,7 @@ class App extends Component {
               {/* <ContactList List={List} onStatusChange={this.onStatusChange} onDelete={this.onDelete} /> */}
               <Route path="/" exact render={() => <ContactList List={List} onStatusChange={this.onStatusChange} onDelete={this.onDelete} />} />
               <Route path="/add-contact" exact render={() => <AddContact /> } />
+              <Route render={() => <Error404 /> } />
             </Switch>
             <Footer />
           </Router>
