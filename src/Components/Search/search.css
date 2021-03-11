@@ -1,4 +1,4 @@
-.search-block{
+/* .search-block{
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -14,4 +14,12 @@
 }
 .search, .search-btn{
     height: 40px;
+} */
+.d-flex{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.me-2{
+    background-color: lightyellow;
 }

@@ -11,15 +11,15 @@ const Header = () => {
         <Fragment>
         <div className="container">
             <div className="row">
-                <div className="col-lg-4 header-block">
+                <div className="col-lg-4 header-block1">
                     <Link to="/" className="navbar-brand">Contact List</Link>
                 </div>
-                <div className="col-lg-8 header-block">
+                <div className="col-lg-8 header-block2">
                     {/* <button type="button" className="btn btn-primary"><a className="btn-primary" href="#" role="button">Home</a></button>
                     <button type="button" className="btn btn-success add">Add new contact</button>
                     */}
-                    <Link to="/" className="nav-link active" aria-current="page">Home</Link>
-                    <Link to="/add-contact" className="nav-link" aria-current="page">Add new contact</Link>
+                    <Link to="/" className="nav-link active home-btn" aria-current="page">Home</Link>
+                    <Link to="/add-contact" className="nav-link add-btm" aria-current="page">Add new contact</Link>
                 </div>
             </div>
         </div>

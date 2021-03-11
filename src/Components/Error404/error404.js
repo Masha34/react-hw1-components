@@ -1,5 +1,7 @@
 import React, { Fragment } from "react";
+
 import { render } from "react-dom";
+
 import "./error404.css";
 
 const Error404 = () => {
