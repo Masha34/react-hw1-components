@@ -120,6 +120,17 @@ class App extends Component {
   //   });
   // }
 
+  onAddContact = (newContact) => {
+    // console.log("onAddContact ", newContact)
+    const tmpList = this.state.List.slice();
+    const newList = [...tmpList, newContact];
+    // console.log("newList => ", newList);
+    this.setState(() => {
+      return {
+        List: newList
+      }
+    })
+  }
   onStatusChange = (Id) => {
         // console.log("onStatusChange", Id);
         // console.log("onStatusChange", this);
@@ -161,7 +172,7 @@ class App extends Component {
 
   render(){
     const {List} = this.state;
-    console.log("App state => ", this.state);
+    // console.log("App state => ", this.state);
     return(
       <Fragment> 
           <Router>
@@ -169,7 +180,7 @@ class App extends Component {
             <Switch>
               {/* <ContactList List={List} onStatusChange={this.onStatusChange} onDelete={this.onDelete} /> */}
               <Route path="/" exact render={() => <ContactList List={List} onStatusChange={this.onStatusChange} onDelete={this.onDelete} />} />
-              <Route path="/add-contact" exact render={() => <AddContact /> } />
+              <Route path="/add-contact" exact render={() => <AddContact onAddContact={this.onAddContact} /> } />
               {/* <Route render={() => <Error404 /> } /> */}
               <Route component ={Error404} /> 
             </Switch>

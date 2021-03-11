@@ -1,5 +1,6 @@
 import React, { Fragment} from "react";
-
+import { v4 as uuidv4 } from 'uuid';
+import { Redirect } from "react-router-dom";
 import "./addContact.css";
 
 class AddContact extends React.Component {
@@ -11,7 +12,8 @@ class AddContact extends React.Component {
             "Role": "",
             "Status": "",
             "Email": "",
-            "Gender": "women"
+            "Gender": "women",
+            "isRedirect": false
     }
     getName = (event) => {
         // console.log(event)
@@ -46,14 +48,26 @@ class AddContact extends React.Component {
         console.log("addNewContact");
         const { Avatar, Name, Role, Status, Email, Gender } = this.state;
         let Created = Date.now();
+        const Id = uuidv4();
         // Створимо новий обєкт
-        const newContact = { Avatar, Name, Role, Status, Email, Gender, Created };
-        console.log("newContact = ", newContact)
+        const newContact = { Id, Avatar, Name, Role, Status, Email, Gender, Created };
+        // console.log("newContact = ", newContact)
+
+        const { onAddContact } = this.props;
+        onAddContact(newContact);
+        this.setState({
+            isRedirect: true
+        })
     }
     render(){   
         // console.log("This props ", this.props)
         // const { Name } = this.props;
-        const { Name, Gender, Avatar } = this.state;
+        const { Name, Gender, Avatar, isRedirect } = this.state;
+        if (isRedirect) {     // (isRedirect)-це озн true; (!isRedirect)-це озн false, не true
+            return (
+                <Redirect to="/" />
+            )
+        }
         const URL = `https://randomuser.me/api/portraits/${Gender}/${Avatar}.jpg`;
         // console.log(Name)
         // console.log("State ", this.state)
