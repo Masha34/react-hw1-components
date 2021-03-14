@@ -59,6 +59,7 @@ class AddContact extends React.Component {
             isRedirect: true
         })
     }
+    
     render(){   
         // console.log("This props ", this.props)
         // const { Name } = this.props;

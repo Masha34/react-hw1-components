@@ -1,21 +1,3 @@
-// import React from 'react';
-// import ReactDOM from 'react-dom';
-// import './index.css';
-// import App from './App';
-// import reportWebVitals from './reportWebVitals';
-
-// ReactDOM.render(
-//   <React.StrictMode>
-//     <App />
-//   </React.StrictMode>,
-//   document.getElementById('root')
-// );
-
-// // If you want to start measuring performance in your app, pass a function
-// // to log results (for example: reportWebVitals(console.log))
-// // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-// reportWebVitals();
-
 import React, {Fragment, Component} from "react";
 
 import ReactDOM from "react-dom";
@@ -35,6 +17,7 @@ import Header from "./Components/Header/header";
 import ContactList from "./Components/ContactList/contactList";
 import Footer from "./Components/Footer/footer";
 import AddContact from "./Components/AddContact/addContact";
+import EditContact from "./Components/EditContact/editContact";
 import Error404 from "./Components/Error404/error404";
 
 class App extends Component {
@@ -82,7 +65,8 @@ class App extends Component {
         "Email": "mij@ukr.com",
         "Gender": "men"
       }
-    ]
+    ],
+    currentContact: ""
   }
   onDelete = (Id) => {
     const index = this.state.List.findIndex((elem) => elem.Id === Id);
@@ -96,6 +80,17 @@ class App extends Component {
         List: newList,
       };
     });
+  }
+  onEdit = (Id) => {
+    const index = this.state.List.findIndex((elem) => elem.Id === Id);
+    const selectedContact = this.state.List[index];
+    // console.log("selectedContact => ", selectedContact)
+    // const old = this.state.List.slice();
+    this.setState(() => {
+      return{
+        currentContact: selectedContact
+      }
+    })
   }
 
   //нижче ще один працюючий метод для видалення
@@ -129,6 +124,20 @@ class App extends Component {
       return {
         List: newList
       }
+    })
+  }
+
+  onEditCurrentContact =( newContact ) => {
+    // console.log("newContact => ", newContact)
+    const { Id } = newContact;
+    const index = this.state.List.findIndex((elem) => elem.Id === Id);
+    const partOne = this.state.List.slice(0, index); 
+    const pertTwo = this.state.List.slice(index + 1); 
+    const newList = [...partOne, newContact, ...pertTwo]; //викор диструктуризацію
+    this.setState(() => {
+      return{
+        List: newList
+      };
     })
   }
   onStatusChange = (Id) => {
@@ -171,7 +180,7 @@ class App extends Component {
 
 
   render(){
-    const {List} = this.state;
+    const { List, currentContact } = this.state;
     // console.log("App state => ", this.state);
     return(
       <Fragment> 
@@ -179,8 +188,9 @@ class App extends Component {
           <Header />  
             <Switch>
               {/* <ContactList List={List} onStatusChange={this.onStatusChange} onDelete={this.onDelete} /> */}
-              <Route path="/" exact render={() => <ContactList List={List} onStatusChange={this.onStatusChange} onDelete={this.onDelete} />} />
+              <Route path="/" exact render={() => <ContactList List={List} onStatusChange={this.onStatusChange} onDelete={this.onDelete} onEdit={this.onEdit} />} />
               <Route path="/add-contact" exact render={() => <AddContact onAddContact={this.onAddContact} /> } />
+              <Route path="/editContact" exact render={() => <EditContact currentContact={currentContact} onEditCurrentContact={this.onEditCurrentContact} /> } />
               {/* <Route render={() => <Error404 /> } /> */}
               <Route component ={Error404} /> 
             </Switch>
