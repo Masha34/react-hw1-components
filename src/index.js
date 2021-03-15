@@ -22,52 +22,102 @@ import Error404 from "./Components/Error404/error404";
 
 class App extends Component {
 
+  URL = "https://contact-list-c07e0-default-rtdb.firebaseio.com/List.json";
+
   state = {
-    List: [
-      {
-        "Id": uuidv4(),
-        // "Avatar": "https://randomuser.me/api/portraits/women/80.jpg",
-        "Avatar": "60",
-        "Name": "Mila Kunis",
-        "Created": "2013/08/08",
-        "Role": "Admin",
-        "Status": "Active",
-        "Email": "mila@kunis.com",
-        "Gender": "women"
-      },
-      {
-        "Id": uuidv4(),
-        "Avatar": "20",
-        "Name": "Camil Jonson",
-        "Created": "2013/08/08",
-        "Role": "User",
-        "Status": "Inactive",
-        "Email": "camil@gmail.com",
-        "Gender": "men"
-      },
-      {
-        "Id": uuidv4(),
-        "Avatar": "50",
-        "Name": "Jenifer Daniels",
-        "Created": "2013/08/08",
-        "Role": "User",
-        "Status": "Pending",
-        "Email": "mike@ukr.com",
-        "Gender": "women"
-      },
-      {
-        "Id": uuidv4(),
-        "Avatar": "45",
-        "Name": "Tom Wilson",
-        "Created": "2013/08/08",
-        "Role": "User",
-        "Status": "Banned",
-        "Email": "mij@ukr.com",
-        "Gender": "men"
-      }
-    ],
+    // List: [
+    //   {
+    //     "Id": uuidv4(),
+    //     // "Avatar": "https://randomuser.me/api/portraits/women/80.jpg",
+    //     "Avatar": "60",
+    //     "Name": "Mila Kunis",
+    //     "Created": "2013/08/08",
+    //     "Role": "Admin",
+    //     "Status": "Active",
+    //     "Email": "mila@kunis.com",
+    //     "Gender": "women"
+    //   },
+    //   {
+    //     "Id": uuidv4(),
+    //     "Avatar": "20",
+    //     "Name": "Camil Jonson",
+    //     "Created": "2013/08/08",
+    //     "Role": "User",
+    //     "Status": "Inactive",
+    //     "Email": "camil@gmail.com",
+    //     "Gender": "men"
+    //   },
+    //   {
+    //     "Id": uuidv4(),
+    //     "Avatar": "50",
+    //     "Name": "Jenifer Daniels",
+    //     "Created": "2013/08/08",
+    //     "Role": "User",
+    //     "Status": "Pending",
+    //     "Email": "mike@ukr.com",
+    //     "Gender": "women"
+    //   },
+    //   {
+    //     "Id": uuidv4(),
+    //     "Avatar": "45",
+    //     "Name": "Tom Wilson",
+    //     "Created": "2013/08/08",
+    //     "Role": "User",
+    //     "Status": "Banned",
+    //     "Email": "mij@ukr.com",
+    //     "Gender": "men"
+    //   }
+    // ],
+    List: [],
     currentContact: ""
   }
+  
+  componentDidMount(){
+    this.updateDatabase();
+  }
+
+  // async updateDatabase() {
+  //   const List = await fetch(this.URL)
+  updateDatabase = () => {
+    fetch(this.URL)
+    .then(responce => {
+      // console.log("update => ", responce)
+      return responce.json();
+    // }).catch(err => {
+    //   return err;
+    }).then(data => {
+      // console.log("update ", data);
+      if (data !== null) {
+        this.setState(() => {
+          return{
+            List: data
+          }
+        })
+      }
+      // else {  // можна не писати бо база в нас і так на початку є порожнім
+      //   this.setState(() => {
+      //     return{
+      //       List: []
+      //     }
+      //   })
+      // }
+     
+    })
+    .catch(err => console.log(err))
+  }
+
+  saveData = (contactList) => {
+    fetch(this.URL, {
+      method: "PUT",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(contactList), // данные могут быть 'строкой' или {объектом}!
+    }).then(response => {
+      console.log("saveDate responce =>", response);
+    }).catch(err => console.log(err))
+  }
+
   onDelete = (Id) => {
     const index = this.state.List.findIndex((elem) => elem.Id === Id);
     // console.log("Delete index => ", index)
@@ -125,6 +175,7 @@ class App extends Component {
         List: newList
       }
     })
+    this.saveData(newList)
   }
 
   onEditCurrentContact =( newContact ) => {

@@ -3,6 +3,32 @@ import { Link } from "react-router-dom";
 import "./contactItem.css";
 
 class ContactItem extends React.Component {
+
+    // componentDidMount(){
+    //     console.log("componentDidMount");
+    // }
+    // shouldComponentUpdate(nextProps, nextState){
+    //     console.log("nextProps => ", nextProps);
+    //     console.log("nextState => ", nextState);
+    //     if (nextProps.Status === "Active"){
+    //         console.log("Active");
+    //         return false  //кажемо не оновлюй компонент
+    //     }
+    //     else {
+    //         return true;
+    //     }
+    //     // if (nextProps.Status === "Active"){
+    //     //     console.log("Active");
+    //     //     return true;
+    //     // }
+    // }
+    // componentDidUpdate(){
+    //     console.log("componentDidUpdate");
+    // }
+    // componentWillUnmount(){
+    //     console.log("componentWillUnmount");
+    // }
+
 //нижче це локальний state
     // state ={
     //     //буде приходити з props
