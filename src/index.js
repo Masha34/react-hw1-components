@@ -130,6 +130,7 @@ class App extends Component {
         List: newList,
       };
     });
+    this.saveData(newList); // видалення з бази даних
   }
   onEdit = (Id) => {
     const index = this.state.List.findIndex((elem) => elem.Id === Id);
