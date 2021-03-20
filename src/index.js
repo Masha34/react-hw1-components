@@ -114,7 +114,7 @@ class App extends Component {
       },
       body: JSON.stringify(contactList), // данные могут быть 'строкой' или {объектом}!
     }).then(response => {
-      console.log("saveDate responce =>", response);
+      // console.log("saveDate responce =>", response);
     }).catch(err => console.log(err))
   }
 
