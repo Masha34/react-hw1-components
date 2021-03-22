@@ -64,32 +64,6 @@ class App extends Component {
   // }
  
   
-  // saveData = (contactList) => {
-  //   fetch(this.URL, {
-  //     method: "PUT",
-  //     headers: {
-  //       'Content-Type': 'application/json'
-  //     },
-  //     body: JSON.stringify(contactList), // данные могут быть 'строкой' или {объектом}!
-  //   }).then(response => {
-  //     // console.log("saveDate responce =>", response);
-  //   }).catch(err => console.log(err))
-  // }
-
-  // onDelete = (Id) => {
-  //   const index = this.state.List.findIndex((elem) => elem.Id === Id);
-  //   // console.log("Delete index => ", index)
-  //   const partOne = this.state.List.slice(0, index); // все від 0 елемента до елемента який нам треба видалити
-  //   const pertTwo = this.state.List.slice(index + 1); // все після видаленого елемента
-  //   const newList = [...partOne, ...pertTwo]; //викор диструктуризацію
-  //   // ... - це спред оператор, тобто м не знаємо точну к-сть параметрів тому пишемо ...
-  //   this.setState(() => {
-  //     return {
-  //       List: newList,
-  //     };
-  //   });
-  //   this.saveData(newList); // видалення з бази даних
-  // }
   // onEdit = (Id) => {
   //   const index = this.state.List.findIndex((elem) => elem.Id === Id);
   //   const selectedContact = this.state.List[index];

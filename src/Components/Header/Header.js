@@ -18,7 +18,7 @@ const Header = ({onSearchContact, onSearchValue}) => {
                     {/* <button type="button" className="btn btn-primary"><a className="btn-primary" href="#" role="button">Home</a></button>
                     <button type="button" className="btn btn-success add">Add new contact</button>
                     */}
-                    <Link to="/" className="nav-link active home-btn" aria-current="page">Home</Link>
+                    {/* <Link to="/" className="nav-link active home-btn" aria-current="page">Home</Link> */}
                     <Link to="/add-contact" className="nav-link add-btm" aria-current="page">Add new contact</Link>
                 </div>
             </div>

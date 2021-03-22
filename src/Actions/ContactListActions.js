@@ -1,4 +1,5 @@
-import ContactList from "../Components/ContactList/contactList"
+
+import contactList from "../Components/ContactList/contactList"
 
 export const getAllContacts = (contactList) => {
     return {
