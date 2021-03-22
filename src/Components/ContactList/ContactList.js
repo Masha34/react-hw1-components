@@ -1,12 +1,22 @@
-import React, {Fragment} from "react";
+import React, {Fragment, useEffect} from "react"; //useEffect замінить componentDidMounth()
+import {connect} from "react-redux";
+import { updateDatabase } from "../../Services/api-service";
+import ContactItem from "./ContactItem.js/contactItem";
+import { getAllContacts } from "../../Actions/ContactListActions";
 
-import ContactItem from "./ContactItem.js/contactItem"
-
-const ContactList = ({List, onStatusChange, onDelete, onEdit }) => {
+// const ContactList = ({List, onStatusChange, onDelete, onEdit }) => {
+const ContactList = ({List, getAllContacts }) => {
     // console.log("ContactList ", List);
+    useEffect(() => {
+        // updateDatabase()
+        updateDatabase().then(data => { //відловлюємо нашу відповідь з api-services
+            // console.log("data ===>>", data);
+            getAllContacts(data);
+        })
+    })
     const item = List.map(contact => {
          return(
-             <ContactItem Id={contact.Id} key={contact.Id} Avatar={contact.Avatar} Name={contact.Name} Created={contact.Created} Role={contact.Role} Status={contact.Status} Email={contact.Email} Gender={contact.Gender} onStatusChange={() => onStatusChange(contact.Id)} onDelete={() => onDelete(contact.Id)} onEdit={()=> onEdit(contact.Id)} />
+             <ContactItem Id={contact.Id} key={contact.Id} Avatar={contact.Avatar} Name={contact.Name} Created={contact.Created} Role={contact.Role} Status={contact.Status} Email={contact.Email} Gender={contact.Gender} />
          )
     })
     return(
@@ -42,4 +52,11 @@ const ContactList = ({List, onStatusChange, onDelete, onEdit }) => {
         </Fragment>
     )
 }
-export default ContactList;
+const mapStateToProps = ({ContactListReducer}) => {
+    const { List } = ContactListReducer;
+    return { List }
+}
+const mapDispatchToProps = {
+    getAllContacts
+}
+export default connect(mapStateToProps, mapDispatchToProps)(ContactList);
