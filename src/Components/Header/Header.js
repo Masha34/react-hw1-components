@@ -6,7 +6,7 @@ import Search from "../Search/search"
 
 import "./header.css";
 
-const Header = () => {
+const Header = ({onSearchContact, onSearchValue}) => {
     return(
         <Fragment>
         <div className="container">
@@ -23,7 +23,8 @@ const Header = () => {
                 </div>
             </div>
         </div>
-        <Search />
+        {/* <Search /> */}
+        <Search onSearchContact = {onSearchContact} onSearchValue = {onSearchValue}/>
         </Fragment>
     )
 }
