@@ -13,6 +13,7 @@ const ContactList = ({List, getAllContacts }) => {
             // console.log("data ===>>", data);
             getAllContacts(data);
         })
+    // }, [])
     })
     const item = List.map(contact => {
          return(

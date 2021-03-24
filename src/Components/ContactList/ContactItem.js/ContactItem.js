@@ -1,8 +1,27 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./contactItem.css";
+import { connect } from "react-redux";
+import { deleteContact } from "../../../Actions/ContactListActions";
+import {Redirect} from "react-router-dom";
+import {saveData} from "../../../Services/api-service";
 
 class ContactItem extends React.Component {
+
+    onDeleteContact = () => {
+        const { List, deleteContact } = this.props;
+        const contact = this.props;
+        const newList = List.filter((contact_item) => {
+            return contact_item.Id !== contact.Id;
+        });
+        deleteContact(newList);
+        saveData(newList).then(() => {
+            this.setState({
+                List: newList,
+                isRedirect: true
+            })
+        }) 
+    }
 
     // componentDidMount(){
     //     console.log("componentDidMount");
@@ -70,8 +89,8 @@ class ContactItem extends React.Component {
 
     render(){
         // console.log("contactItems Props =>", this.props)
-        // console.log("contactItems Props =>", this.props)
-        const { onStatusChange, onDelete, onEdit } = this.props;
+        // const { onStatusChange, onDelete, onEdit } = this.props;
+        const { onStatusChange, onEdit } = this.props;
         // const { Avatar, Name, Created, Role, Status, Email, Gender} = this.state;
         const { Avatar, Name, Created, Role, Status, Email, Gender} = this.props;
         const URL = `https://randomuser.me/api/portraits/${Gender}/${Avatar}.jpg`;
@@ -122,7 +141,8 @@ class ContactItem extends React.Component {
                             <i className="fa fa-pencil fa-stack-1x fa-inverse"></i>
                         </span>
                     </Link>
-                    <a href="#" onClick={onDelete} className="table-link danger">
+                    {/* <a href="#" onClick={onDelete} className="table-link danger"> */}
+                    <a href="#" onClick={this.onDeleteContact} className="table-link danger">
                         <span className="fa-stack">
                             <i className="fa fa-square fa-stack-2x"></i>
                             {/* <i className="fa fa-trash-o fa-stack-1x fa-inverse" onClick={onDelete}></i> */}
@@ -135,4 +155,11 @@ class ContactItem extends React.Component {
     }
     
 }
-export default ContactItem;
+const mapStateToProps = ({ContactListReducer}) => {
+    const { List } = ContactListReducer;
+    return { List }
+}
+const mapDispatchToProps = {
+    deleteContact
+}
+export default connect(mapStateToProps, mapDispatchToProps)(ContactItem);
