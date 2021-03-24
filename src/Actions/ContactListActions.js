@@ -7,3 +7,15 @@ export const getAllContacts = (contactList) => {
         payload: contactList   //contactList записується в payload
     }
 }
+export const addNewContact = (contactList) => {
+    return {
+        type: "ADD_NEW_CONTACT",
+        payload: contactList  
+    }
+}
+export const deleteContact = (contactList) => {
+    return {
+        type: "DELETE_CONTACT",
+        payload: contactList  
+    }
+}

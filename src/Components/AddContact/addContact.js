@@ -4,7 +4,7 @@ import { Redirect } from "react-router-dom";
 import "./addContact.css";
 import { saveData } from "../../Services/api-service";
 import { connect } from "react-redux";
-
+import { addNewContact } from "../../Actions/ContactListActions";
 
 class AddContact extends React.Component {
 
@@ -59,10 +59,14 @@ class AddContact extends React.Component {
         // const { onAddContact } = this.props;
         const { List } = this.props;
         
-        
-        List.push(newContact)
+       
+        // List.push(newContact)
+
+         // addNewContact
+         const newList = [...List, newContact]
+
         // onAddContact(newContact);
-        saveData(List);
+        saveData(newList);
         this.setState({
             isRedirect: true
         })
@@ -260,7 +264,10 @@ const mapStateToProps = ({ContactListReducer}) => {
     const { List } = ContactListReducer;
     return { List }
 }
-export default connect(mapStateToProps)(AddContact);
+const mapDispatchToProps = {
+    addNewContact
+}
+export default connect(mapStateToProps, mapDispatchToProps)(AddContact);
 
 // Додаткова форма
 {/* <Fragment>
